@@ -1,0 +1,46 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:7
+        ports:
+          - 27017:27017
+
+    steps:
+      # composer.json ссылается на соседние каталоги ../dbsimple-models и ../dbsimple
+      - uses: actions/checkout@v4
+        with:
+          path: mongodb-models
+      - uses: actions/checkout@v4
+        with:
+          repository: voxel99/dbsimple-models
+          path: dbsimple-models
+      - uses: actions/checkout@v4
+        with:
+          repository: voxel99/dbsimple
+          path: dbsimple
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mongodb, pdo_sqlite
+          coverage: none
+
+      - name: Install dependencies
+        working-directory: mongodb-models
+        run: composer install --no-interaction --no-progress
+
+      - name: Tests
+        working-directory: mongodb-models
+        env:
+          MONGODB_TEST_URI: mongodb://127.0.0.1:27017
+        run: vendor/bin/phpunit

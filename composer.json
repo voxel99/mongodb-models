@@ -1,0 +1,50 @@
+{
+    "name": "jam/mongodb-models",
+    "description": "MongoDB models on top of jam/dbsimple-models: the same model API (fields, casting, relations, events) on MongoDB collections",
+    "keywords": ["mongodb", "models", "active-record", "orm", "odm"],
+    "type": "library",
+    "license": "LGPL-2.1-only",
+    "authors": [
+        {
+            "name": "Jam Contributors",
+            "role": "Maintainer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../dbsimple-models",
+            "options": {"versions": {"jam/dbsimple-models": "dev-main"}}
+        },
+        {
+            "type": "path",
+            "url": "../dbsimple",
+            "options": {"versions": {"jam/dbsimple": "dev-main"}}
+        }
+    ],
+    "require": {
+        "php": ">=8.4",
+        "ext-mongodb": "^2.1",
+        "mongodb/mongodb": "^2.1",
+        "jam/dbsimple-models": "dev-main"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jam\\Models\\MongoDB\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jam\\Models\\MongoDB\\Tests\\": "tests/",
+            "Jam\\Models\\MongoDB\\Examples\\": "examples/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "phpunit"
+    }
+}
