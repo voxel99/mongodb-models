@@ -114,6 +114,11 @@ docker run -d -p 27017:27017 mongo:7
 MONGODB_URI=mongodb://127.0.0.1:27017 php examples/quickstart.php
 ```
 
+## Development
+
+`composer.json` resolves `jam/dbsimple-models` and `jam/dbsimple` from sibling checkouts
+(`../dbsimple-models`, `../dbsimple`) — clone all three repositories next to each other.
+
 ## Tests
 
 ```bash
